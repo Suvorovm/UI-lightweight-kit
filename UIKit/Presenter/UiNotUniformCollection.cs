@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UIKit.Presenter
 {
-    public class UiNotUniformCollection : MonoBehaviour
+    public class UINotUniformCollection : MonoBehaviour
     {
         [SerializeField]
         private Transform _collectionRoot;

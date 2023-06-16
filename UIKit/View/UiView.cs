@@ -1,9 +1,19 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace UIKit.View
 {
+    [RequireComponent(typeof(Canvas))]
     public class UiView : MonoBehaviour
     {
+        public Canvas ViewCanvas { get; private set; }
+        
+
+        private void Awake()
+        {
+            ViewCanvas = GetComponent<Canvas>();
+        }
+
         public void Show(bool isShow = true)
         {
             gameObject.SetActive(isShow);
