@@ -65,17 +65,6 @@ namespace UIKit.Service
             return presenter;
         }
 
-        public void HidePresenter<T>()
-            where T : IUiPresenter
-        {
-            if (_showedPresenters.Count == 0)
-            {
-                return;
-            }
-
-            PresenterData presenterData = TryGetPresenter<T>();
-            RemoveDialog(presenterData);
-        }
         private void RemoveDialog(PresenterData removingPresenter)
         {
             for (int i = 0; i < _showedPresenters.Count; i++)
@@ -102,6 +91,18 @@ namespace UIKit.Service
             }
 
             return true;
+        }
+
+        private void HidePresenter<T>()
+            where T : IUiPresenter
+        {
+            if (_showedPresenters.Count == 0)
+            {
+                return;
+            }
+
+            PresenterData presenterData = TryGetPresenter<T>();
+            RemoveDialog(presenterData);
         }
 
         private PresenterData TryGetPresenter<T>()
