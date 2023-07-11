@@ -45,14 +45,12 @@ namespace UIKit.Service
             T presenter = _uiPresenterFactory.GetPresenter<T>();
             presenter.Show();
             _maxSortingOrder++;
-            presenter.GetUiView().ViewCanvas.overrideSorting = true;
-            presenter.GetUiView().ViewCanvas.sortingOrder = _maxSortingOrder;
+            presenter.GetUIView().ViewCanvas.overrideSorting = true;
+            presenter.GetUIView().ViewCanvas.sortingOrder = _maxSortingOrder;
             CompositeDisposable compositeDisposable = new CompositeDisposable();
             presenter.OnHide
                 .Subscribe(_ =>
                 {
-                    compositeDisposable?.Dispose();
-                    compositeDisposable = null;
                     HidePresenter<T>();
                 })
                 .AddTo(compositeDisposable);
@@ -60,11 +58,25 @@ namespace UIKit.Service
             {
                 Order = _maxSortingOrder,
                 Presenter = presenter,
-                UiView = presenter.GetUiView()
+                UiView = presenter.GetUIView(),
+                HideDisposable = compositeDisposable
             });
             return presenter;
         }
 
+        public void HidePresenter<T>()
+            where T : IUiPresenter
+        {
+            if (_showedPresenters.Count == 0)
+            {
+                return;
+            }
+
+            PresenterData presenterData = TryGetPresenter<T>();
+            presenterData.HideDisposable?.Dispose();
+            presenterData.HideDisposable = null;
+            RemoveDialog(presenterData);
+        }
         private void RemoveDialog(PresenterData removingPresenter)
         {
             for (int i = 0; i < _showedPresenters.Count; i++)
@@ -91,18 +103,6 @@ namespace UIKit.Service
             }
 
             return true;
-        }
-
-        private void HidePresenter<T>()
-            where T : IUiPresenter
-        {
-            if (_showedPresenters.Count == 0)
-            {
-                return;
-            }
-
-            PresenterData presenterData = TryGetPresenter<T>();
-            RemoveDialog(presenterData);
         }
 
         private PresenterData TryGetPresenter<T>()
@@ -137,6 +137,7 @@ namespace UIKit.Service
             public UiView UiView;
             public IUiPresenter Presenter;
             public int Order;
+            public CompositeDisposable HideDisposable;
         }
     }
 }
