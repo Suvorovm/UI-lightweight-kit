@@ -16,7 +16,7 @@ namespace UIKit.Presenter
         void HideWithAnimation(Action complete = null);
         bool IsShow();
         void Lock(bool value);
-        UiView GetUiView();
+        UiView GetUIView();
     }
 
     public abstract class UiPresenter : IDisposable
@@ -39,14 +39,14 @@ namespace UIKit.Presenter
         public IObservable<UiPresenter> OnHide => _onHide;
 
 
-        private T _view;
-        public T View => _view;
-        public UiView GetUiView() => _view;
+        private T _uiView;
+        public T UIView => _uiView;
+        public UiView GetUIView() => _uiView;
 
 
-        protected UiPresenter(T view)
+        protected UiPresenter(T uiView)
         {
-            _view = view;
+            _uiView = uiView;
             _onShow = new Subject<UiPresenter>();
             _onHide = new Subject<UiPresenter>();
         }
@@ -54,25 +54,25 @@ namespace UIKit.Presenter
 
         public void Lock(bool value)
         {
-            foreach (var button in _view.GetComponentsInChildren<Button>())
+            foreach (var button in _uiView.GetComponentsInChildren<Button>())
                 button.enabled = !value;
         }
 
         public virtual void Show()
         {
-            View.Show();
+            UIView.Show();
             _onShow.OnNext(this);
         }
 
         public virtual void Hide()
         {
-            View.Hide();
+            UIView.Hide();
             _onHide.OnNext(this);
         }
 
         public bool IsShow()
         {
-            return View.IsShow();
+            return UIView.IsShow();
         }
 
         public virtual void HideWithAnimation(Action complete = null)

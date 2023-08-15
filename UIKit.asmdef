@@ -2,7 +2,8 @@
     "name": "UIKit",
     "rootNamespace": "",
     "references": [
-        "UniRx"
+        "UniRx",
+        "CGK"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

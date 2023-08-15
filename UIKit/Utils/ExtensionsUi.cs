@@ -5,7 +5,8 @@ namespace UIKit.Utils
 {
     public static class ExtensionsUi
     {
-        
+        static Vector3[] corners = new Vector3[4];
+
         public static Canvas GetCanvas(string tag)
         {
             var canvasGo = GameObject.FindWithTag(tag);
@@ -17,7 +18,7 @@ namespace UIKit.Utils
 
             return canvasGo.GetComponent<Canvas>();
         }
-        
+
         public static void SetAlpha(this Image image, float alpha)
         {
             var color = image.color;
@@ -44,7 +45,6 @@ namespace UIKit.Utils
         }
 
         // Shared array used to receive result of RectTransform.GetWorldCorners
-        static Vector3[] corners = new Vector3[4];
 
         /// <summary>
         /// Transform the bounds of the current rect transform to the space of another transform.
