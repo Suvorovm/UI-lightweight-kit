@@ -77,11 +77,11 @@ namespace UIKit.Service
             presenterData.HideDisposable = null;
             RemoveDialog(presenterData);
         }
-        private void RemoveDialog(PresenterData removingPresenter)
+        private void RemoveDialog(PresenterData removingPresenterData)
         {
             for (int i = 0; i < _showedPresenters.Count; i++)
             {
-                if (_showedPresenters[i].Order > removingPresenter.Order)
+                if (_showedPresenters[i].Order > removingPresenterData.Order)
                 {
                     _showedPresenters[i].Order--;
                     _showedPresenters[i].UiView.ViewCanvas.sortingOrder--;
@@ -89,7 +89,8 @@ namespace UIKit.Service
             }
 
             _maxSortingOrder--;
-            _showedPresenters.Remove(removingPresenter);
+            removingPresenterData.UiView.Hide();
+            _showedPresenters.Remove(removingPresenterData);
 
         }
 
