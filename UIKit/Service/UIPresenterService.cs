@@ -95,7 +95,7 @@ namespace UIKit.Service
         }
 
         public bool IsPresenterShowed<T>()
-            where T : UiPresenter<UiView>
+            where T : IUiPresenter
         {
             PresenterData presenterData = TryGetPresenter<T>();
             if (presenterData == null)
