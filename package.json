@@ -1,6 +1,6 @@
 {
   "name": "com.suvorov.ui.lightweight-kit",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "displayName": "Ui Lightweight kit",
   "description": "It is simple UI lib to work with UI elements in Unity",
   "unity": "2022.1",

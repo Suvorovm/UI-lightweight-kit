@@ -32,18 +32,20 @@ namespace UIKit.Service
             ValidateUIStruct();
         }
 
-        public IUiPresenter ShowPresenter<T>()
+        public IUiPresenter ShowPresenter<T>(params object[] showParameters)
             where T : IUiPresenter
 
         {
+
             var data = TryGetPresenter<T>();
             if (data != null)
             {
+
                 PushUpExistingPresenter(data);
                 return data.Presenter;
             }
             T presenter = _uiPresenterFactory.GetPresenter<T>();
-            presenter.Show();
+            presenter.Show(showParameters);
             _maxSortingOrder++;
             presenter.GetUIView().ViewCanvas.overrideSorting = true;
             presenter.GetUIView().ViewCanvas.sortingOrder = _maxSortingOrder;

@@ -11,8 +11,11 @@ namespace UIKit.Presenter
         IObservable<UiPresenter> OnShow { get; }
         IObservable<UiPresenter> OnHide { get; }
         void Show();
+        void Show(params object[] showParameters);
+        [Obsolete]
         void ShowWithAnimation(Action complete = null);
         void Hide();
+        [Obsolete]
         void HideWithAnimation(Action complete = null);
         bool IsShow();
         void Lock(bool value);
@@ -64,6 +67,11 @@ namespace UIKit.Presenter
             _onShow.OnNext(this);
         }
 
+        public virtual void Show(params object[] showParameters)
+        {
+            Show();
+        }
+
         public virtual void Hide()
         {
             UIView.Hide();
@@ -74,13 +82,15 @@ namespace UIKit.Presenter
         {
             return UIView.IsShow();
         }
-
+        
+        [Obsolete]
         public virtual void HideWithAnimation(Action complete = null)
         {
             Hide();
             complete?.Invoke();
         }
         
+        [Obsolete]
         public virtual void ShowWithAnimation(Action complete = null)
         {
             Show();
@@ -91,6 +101,5 @@ namespace UIKit.Presenter
         {
             Disposables?.Dispose();
         }
-        
     }
 }
