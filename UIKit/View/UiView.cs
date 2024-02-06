@@ -1,19 +1,23 @@
-﻿using System;
+﻿using CGK.Utils;
 using UnityEngine;
 
-namespace UIKit.View
+namespace UiKit.View
 {
     [RequireComponent(typeof(Canvas))]
     public class UiView : MonoBehaviour
     {
-        public Canvas ViewCanvas { get; private set; }
-        
+        [SerializeField]
+        [ReadOnly]
+        private Canvas _viewCanvas;
 
-        private void Awake()
+        public Canvas ViewCanvas => _viewCanvas;
+
+#if UNITY_EDITOR
+        private void OnValidate()
         {
-            ViewCanvas = GetComponent<Canvas>();
+            _viewCanvas = GetComponent<Canvas>();
         }
-
+#endif
         public void Show(bool isShow = true)
         {
             gameObject.SetActive(isShow);

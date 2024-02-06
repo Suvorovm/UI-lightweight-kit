@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using UIKit.View;
+using UiKit.View;
 using UnityEngine;
 
-namespace UIKit.Presenter
+namespace UiKit.Presenter
 {
     public class UINotUniformCollection : MonoBehaviour
     {

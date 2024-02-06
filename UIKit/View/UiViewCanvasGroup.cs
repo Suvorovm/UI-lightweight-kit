@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UIKit.View
+namespace UiKit.View
 {
     public class UiViewCanvasGroup : UiView
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace UIKit.Utils
+namespace UiKit.Utils
 {
     public class TemplatePool<T> where T : MonoBehaviour
     {

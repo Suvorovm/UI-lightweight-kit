@@ -1,6 +1,6 @@
 {
   "name": "com.suvorov.ui.lightweight-kit",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "displayName": "Ui Lightweight kit",
   "description": "It is simple UI lib to work with UI elements in Unity",
   "unity": "2022.1",
@@ -8,8 +8,7 @@
 
   "dependencies": {
     "com.suvorov.unirx": "https://github.com/Suvorovm/UniRX-lib.git#0.0.2",
-    "com.suvorov.common": "https://github.com/Suvorovm/CGK.git#0.0.28"
-
+    "com.suvorov.common": "https://github.com/Suvorovm/CGK.git#0.0.31"
  },
  "keywords": [
     "UI",

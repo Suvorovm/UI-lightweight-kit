@@ -1,10 +1,8 @@
-﻿
-using System;
-using UIKit.View;
+﻿using System;
+using UiKit.View;
 using UniRx;
-using UnityEngine.UI;
 
-namespace UIKit.Presenter
+namespace UiKit.Presenter
 {
     public interface IUiPresenter
     {
@@ -12,14 +10,9 @@ namespace UIKit.Presenter
         IObservable<UiPresenter> OnHide { get; }
         void Show();
         void Show(params object[] showParameters);
-        [Obsolete]
-        void ShowWithAnimation(Action complete = null);
         void Hide();
-        [Obsolete]
-        void HideWithAnimation(Action complete = null);
         bool IsShow();
-        void Lock(bool value);
-        UiView GetUIView();
+        UiView GetUiView();
     }
 
     public abstract class UiPresenter : IDisposable
@@ -41,10 +34,9 @@ namespace UIKit.Presenter
 
         public IObservable<UiPresenter> OnHide => _onHide;
 
-
         private T _uiView;
-        public T UIView => _uiView;
-        public UiView GetUIView() => _uiView;
+        public T UiView => _uiView;
+        public UiView GetUiView() => _uiView;
 
 
         protected UiPresenter(T uiView)
@@ -54,16 +46,9 @@ namespace UIKit.Presenter
             _onHide = new Subject<UiPresenter>();
         }
         
-
-        public void Lock(bool value)
-        {
-            foreach (var button in _uiView.GetComponentsInChildren<Button>())
-                button.enabled = !value;
-        }
-
         public virtual void Show()
         {
-            UIView.Show();
+            UiView.Show();
             _onShow.OnNext(this);
         }
 
@@ -74,29 +59,15 @@ namespace UIKit.Presenter
 
         public virtual void Hide()
         {
-            UIView.Hide();
+            UiView.Hide();
             _onHide.OnNext(this);
         }
 
         public bool IsShow()
         {
-            return UIView.IsShow();
+            return UiView.IsShow();
         }
         
-        [Obsolete]
-        public virtual void HideWithAnimation(Action complete = null)
-        {
-            Hide();
-            complete?.Invoke();
-        }
-        
-        [Obsolete]
-        public virtual void ShowWithAnimation(Action complete = null)
-        {
-            Show();
-            complete?.Invoke();
-        }
-
         public override void Dispose()
         {
             Disposables?.Dispose();

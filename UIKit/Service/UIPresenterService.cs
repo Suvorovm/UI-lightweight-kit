@@ -2,24 +2,24 @@
 using System.Linq;
 using CGK.Utils;
 using JetBrains.Annotations;
-using UIKit.Factory;
-using UIKit.Presenter;
-using UIKit.View;
+using UiKit.Factory;
+using UiKit.Presenter;
+using UiKit.View;
 using UniRx;
 using UnityEngine;
 
-namespace UIKit.Service
+namespace UiKit.Service
 {
     public class UIPresenterService
     {
-        private readonly IUIPresenterFactory _uiPresenterFactory;
+        private readonly IUiPresenterFactory _uiPresenterFactory;
         private readonly List<PresenterData> _showedPresenters;
         
         private GameObject _uiRoot;
 
         private int _maxSortingOrder;
 
-        public UIPresenterService(IUIPresenterFactory uiPresenterFactory)
+        public UIPresenterService(IUiPresenterFactory uiPresenterFactory)
         {
             _uiPresenterFactory = uiPresenterFactory;
             _showedPresenters = new List<PresenterData>();
@@ -29,7 +29,7 @@ namespace UIKit.Service
         public void Init(GameObject root)
         {
             _uiRoot = root;
-            ValidateUIStruct();
+            ValidateUiStruct();
         }
 
         public IUiPresenter ShowPresenter<T>(params object[] showParameters)
@@ -44,11 +44,11 @@ namespace UIKit.Service
                 PushUpExistingPresenter(data);
                 return data.Presenter;
             }
-            T presenter = _uiPresenterFactory.GetPresenter<T>();
-            presenter.Show(showParameters);
+
             _maxSortingOrder++;
-            presenter.GetUIView().ViewCanvas.overrideSorting = true;
-            presenter.GetUIView().ViewCanvas.sortingOrder = _maxSortingOrder;
+            T presenter = _uiPresenterFactory.GetPresenter<T>();
+            presenter.GetUiView().ViewCanvas.overrideSorting = true;
+            presenter.GetUiView().ViewCanvas.sortingOrder = _maxSortingOrder;
             CompositeDisposable compositeDisposable = new CompositeDisposable();
             presenter.OnHide
                 .Subscribe(_ =>
@@ -60,9 +60,11 @@ namespace UIKit.Service
             {
                 Order = _maxSortingOrder,
                 Presenter = presenter,
-                UiView = presenter.GetUIView(),
+                UiView = presenter.GetUiView(),
                 HideDisposable = compositeDisposable
             });
+            
+            presenter.Show(showParameters);
             return presenter;
         }
 
@@ -78,6 +80,7 @@ namespace UIKit.Service
             presenterData.HideDisposable?.Dispose();
             presenterData.HideDisposable = null;
             RemoveDialog(presenterData);
+            presenterData.Presenter.Hide();
         }
         private void RemoveDialog(PresenterData removingPresenterData)
         {
@@ -91,7 +94,6 @@ namespace UIKit.Service
             }
 
             _maxSortingOrder--;
-            removingPresenterData.UiView.Hide();
             _showedPresenters.Remove(removingPresenterData);
 
         }
@@ -116,7 +118,7 @@ namespace UIKit.Service
             return presenterData;
         }
 
-        private void ValidateUIStruct()
+        private void ValidateUiStruct()
         {
             Predications.CheckNotNull(_uiRoot);
         }

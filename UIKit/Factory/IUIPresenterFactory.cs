@@ -1,8 +1,8 @@
-﻿using UIKit.Presenter;
+﻿using UiKit.Presenter;
 
-namespace UIKit.Factory
+namespace UiKit.Factory
 {
-    public interface IUIPresenterFactory
+    public interface IUiPresenterFactory
     {
         T GetPresenter<T>()
             where T : IUiPresenter;
