@@ -7,6 +7,7 @@ using UiKit.Presenter;
 using UiKit.View;
 using UniRx;
 using UnityEngine;
+using System;
 
 namespace UiKit.Service
 {
@@ -99,7 +100,8 @@ namespace UiKit.Service
         }
         public bool IsPresenterShowed(Type type)
         {
-            PresenterData presenterData = _showedPresenters.FirstOrDefault(p => typeof(p.Presenter) == type);
+            PresenterData presenterData = _showedPresenters.FirstOrDefault(p => p.Presenter.GetType() == type);
+
 
             return presenterData != null;
         }
