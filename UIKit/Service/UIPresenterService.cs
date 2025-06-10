@@ -97,6 +97,12 @@ namespace UiKit.Service
             _showedPresenters.Remove(removingPresenterData);
 
         }
+        public bool IsPresenterShowed(Type type)
+        {
+            PresenterData presenterData = _showedPresenters.FirstOrDefault(p => typeof(p.Presenter) == type);
+
+            return presenterData != null;
+        }
 
         public bool IsPresenterShowed<T>()
             where T : IUiPresenter
