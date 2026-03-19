@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UiKit.Presenter
 {
-    public abstract class UiCollection<TView> : MonoBehaviour where TView : UiView
+    public abstract class UiCollection<TView> : MonoBehaviour where TView : UiElement
     {
         [SerializeField] private Transform _collectionRoot;
 

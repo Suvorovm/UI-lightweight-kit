@@ -9,9 +9,9 @@ namespace UiKit.Presenter
         [SerializeField]
         private Transform _collectionRoot;
         
-        private readonly List<UiView> _items = new List<UiView>();
+        private readonly List<UiElement> _items = new List<UiElement>();
 
-        public TView AddItem<TView>(TView prefab) where TView : UiView
+        public TView AddItem<TView>(TView prefab) where TView : UiElement
         {
             var item = Instantiate(prefab, _collectionRoot);
 
@@ -22,13 +22,13 @@ namespace UiKit.Presenter
             return item;
         }
 
-        public void RemoveItem<TView>(TView item) where TView : UiView
+        public void RemoveItem<TView>(TView item) where TView : UiElement
         {
             _items.Remove(item);
             Destroy(item.gameObject);
         }
 
-        public List<UiView> GetItems()
+        public List<UiElement> GetItems()
         {
             return _items;
         }

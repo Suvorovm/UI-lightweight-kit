@@ -4,7 +4,7 @@ using UnityEngine;
 namespace UiKit.View
 {
     [RequireComponent(typeof(Canvas))]
-    public class UiView : MonoBehaviour
+    public class UiView : UiElement
     {
         [SerializeField]
         [ReadOnly]
@@ -18,20 +18,5 @@ namespace UiKit.View
             _viewCanvas = GetComponent<Canvas>();
         }
 #endif
-        public void Show(bool isShow = true)
-        {
-            gameObject.SetActive(isShow);
-        }
-
-        public void Hide()
-        {
-            if (IsShow())
-                gameObject.SetActive(false);
-        }
-
-        public bool IsShow()
-        {
-            return gameObject.activeSelf;
-        }
     }
 }
